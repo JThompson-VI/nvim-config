@@ -1,3 +1,4 @@
+-- mainly deveoper ergonomics plugins
 return {
   {
     'windwp/nvim-autopairs',
