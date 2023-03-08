@@ -40,7 +40,7 @@ map('n', '<S-l>', ':bnext<cr>')
 map('n', '<S-h>', ':bprevious<cr>')
 
 -- telescope
--- misc mappings 
+-- misc mappings
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
 map('n', '<leader>d', '"_d')
