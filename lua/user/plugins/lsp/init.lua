@@ -13,7 +13,16 @@ return {
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
       local servers = {
-        tsserver = {},
+        jdtls = {},
+        tsserver = {
+          typescript = {
+            inlayHints = {
+              functionLikeReturnTypes = {
+                enabled = true
+              }
+            }
+          }
+        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           Lua = {

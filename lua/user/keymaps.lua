@@ -19,7 +19,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 map('n', '<leader>q', ':q<cr>')
 map('n', '<leader>w', ':w<cr>')
--- map('n', '<leader>c', ':Bdelete<cr>') -- unload current buffer with vim-bbye
+map('n', '<leader>c', ':Bdelete<cr>') -- unload current buffer with vim-bbye
+map('n', '<leader>C', ':BWipeout<cr>') -- unload current buffer and remove its jumplist entries
 
 map('n', '<leader>h', ':nohl<cr>')
 
