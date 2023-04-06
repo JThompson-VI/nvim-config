@@ -26,7 +26,7 @@ return {
       vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>sc', require('telescope.builtin').oldfiles, { desc = '[S]earch [C]ontinue' })
+      vim.keymap.set('n', '<leader>sc', require('telescope.builtin').resume, { desc = '[S]earch [C]ontinue' })
 
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.

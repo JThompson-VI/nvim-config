@@ -40,7 +40,6 @@ map("n", "<C-Right>", ":vertical resize +2<CR>")
 map('n', '<S-l>', ':bnext<cr>')
 map('n', '<S-h>', ':bprevious<cr>')
 
--- telescope
 -- misc mappings
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
