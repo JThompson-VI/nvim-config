@@ -11,32 +11,42 @@ return {
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
+      vim.cmd('highlight FloatBorder ctermfg=NONE ctermbg=NONE cterm=NONE guifg=white')
       local servers = {
         jdtls = {},
         tsserver = {
-          typescript = {
-            inlayHints = {
-              functionLikeReturnTypes = {
-                enabled = true
-              }
-            }
+          settings = {
+            typescript = {},
           }
         },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           Lua = {
-            workspace = {
-              checkThirdParty = false,
-            },
             diagnostics = {
               globals = { 'vim' }
+            },
+            workspace = {
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.stdpath("config") .. "/lua"] = true,
+              }
             },
           },
         },
       }
 
+      local _border = 'rounded'
+      local handlers = {
+        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border }),
+        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border }),
+      }
+
       local on_attach = function(_, bufnr)
+        vim.diagnostic.config {
+          float = {
+            border = _border,
+          }
+        }
         local nmap = function(keys, func, desc)
           if desc then
             desc = 'LSP: ' .. desc
@@ -72,6 +82,7 @@ return {
       mason_lspconfig.setup_handlers {
         function(server_name)
           require('lspconfig')[server_name].setup {
+            handlers = handlers,
             capabilities = capabilities,
             on_attach = on_attach,
             settings = servers[server_name],
