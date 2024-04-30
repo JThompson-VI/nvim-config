@@ -11,6 +11,13 @@ return {
         changedelete = { text = "▎" },
         untracked = { text = "▎" },
       },
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+        delay = 0,
+        ignore_whitespace = false,
+      },
+
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
 
@@ -41,8 +48,8 @@ return {
   },
   {
     "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup({
+    opts = function()
+      return {
         plugins = {
           marks = true,
           registers = true,
@@ -50,13 +57,13 @@ return {
             enabled = true,
           },
           presets = {
-            operators = false,  -- adds help for operators like d, y, ...
-            motions = false,    -- adds help for motions
+            operators = false,    -- adds help for operators like d, y, ...
+            motions = false,      -- adds help for motions
             text_objects = false, -- help for text objects triggered after entering an operator
-            windows = false,    -- default bindings on <c-w>
-            nav = false,        -- misc bindings to work with windows
-            z = true,          -- bindings for folds, spelling and others prefixed with z
-            g = false,          -- bindings for prefixed with g
+            windows = false,      -- default bindings on <c-w>
+            nav = false,          -- misc bindings to work with windows
+            z = true,             -- bindings for folds, spelling and others prefixed with z
+            g = false,            -- bindings for prefixed with g
           }
         },
         ignore_missing = true,
@@ -64,15 +71,36 @@ return {
           "'",
           '"',
         },
-      })
-    end
+      }
+    end,
   },
   {
     'akinsho/bufferline.nvim',
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function ()
+    config = function()
       require("bufferline").setup {}
     end
+  },
+  {
+    'numToStr/FTerm.nvim',
+    lazy = true,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    config = function()
+      local harpoon = require("harpoon").setup()
+      local function map(mode, l, r, desc)
+        vim.keymap.set(mode, l, r, { desc = desc })
+      end
+
+      local ui = require("harpoon.ui")
+      map('n', '<leader>mm', ui.toggle_quick_menu)
+      map('n', '<leader>ma', require("harpoon.mark").add_file)
+      map('n', '<leader>m1', function() ui.nav_file(1) end, "Nav file 1")
+      map('n', '<leader>m2', function() ui.nav_file(2) end, "Nav file 2")
+      map('n', '<leader>m3', function() ui.nav_file(3) end, "Nav file 3")
+      map('n', '<leader>m4', function() ui.nav_file(4) end, "Nav file 4")
+    end,
   }
 }

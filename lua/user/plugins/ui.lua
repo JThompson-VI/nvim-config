@@ -4,10 +4,13 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'everforest',
         component_separators = '|',
         section_separators = '',
       },
     },
   },
+  {
+    { "lukas-reineke/indent-blankline.nvim" },
+  }
 }

@@ -9,7 +9,7 @@ return {
           path_display = { "smart" },
           mappings = {
             n = {
-                  ["q"] = function(...)
+              ["q"] = function(...)
                 return require("telescope.actions").close(...)
               end,
             },
@@ -26,7 +26,15 @@ return {
       vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>tr', require('telescope.builtin').lsp_references, { desc = '[T]elescope [R]eferences' })
       vim.keymap.set('n', '<leader>sc', require('telescope.builtin').resume, { desc = '[S]earch [C]ontinue' })
+      -- vim.keymap.set('n', '<leader>sm', require('telescope.builtin').marks, { desc = '[S]earch [M]arks' })
+      vim.keymap.set('n', '<leader>sm',
+        function()
+          require('telescope.builtin').marks(require('telescope.themes').get_dropdown {
+            previewer = false,
+          })
+        end, { desc = '[S]earch [M]arks' })
 
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.

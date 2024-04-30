@@ -33,6 +33,12 @@ return {
             },
           },
         },
+        pyright = {
+          python = {
+            analysis = {
+            }
+          }
+        }
       }
 
       local _border = 'rounded'
@@ -55,19 +61,25 @@ return {
           vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
         end
 
+        nmap('gvd', "<CMD>:vsp | lua vim.lsp.buf.definition()<CR>")
         nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-        nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
         nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
         nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-        nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+        -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation') -- was overwritting move to upper split
         nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
         nmap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>")
         nmap("gl", vim.diagnostic.open_float)
         nmap("<leader>lk", vim.diagnostic.goto_prev)
         nmap("<leader>lj", vim.diagnostic.goto_next)
-        nmap("<leader>lf", vim.lsp.buf.format)
+        nmap("<leader>lf",
+          function()
+            vim.lsp.buf.format { filter = function(client)
+              return client.name ~= "tsserver"
+            end }
+          end)
 
         nmap('<leader>lr', vim.lsp.buf.rename, '[L]sp [R]ename')
       end

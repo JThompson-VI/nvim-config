@@ -10,26 +10,33 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
     },
-    config = function()
+    opts = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
-      cmp.setup {
+      return {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
+        performance = {
+          debounce = 100
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         mapping = cmp.mapping.preset.insert {
-              ["<C-j>"] = cmp.mapping.select_next_item(),
-              ["<C-k>"] = cmp.mapping.select_prev_item(),
+          ["<C-j>"] = cmp.mapping.select_next_item(),
+          ["<C-k>"] = cmp.mapping.select_prev_item(),
           -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {"i", "c"}),
-              ["<C-e>"] = cmp.mapping {
+          ["<C-e>"] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
           },
-              ['<CR>'] = cmp.mapping.confirm {
+          ['<C-Y>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           },

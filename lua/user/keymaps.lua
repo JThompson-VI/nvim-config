@@ -19,7 +19,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 map('n', '<leader>q', ':q<cr>')
 map('n', '<leader>w', ':w<cr>')
-map('n', '<leader>c', ':Bdelete<cr>') -- unload current buffer with vim-bbye
+map('n', '<leader>c', ':Bdelete<cr>')  -- unload current buffer with vim-bbye
 map('n', '<leader>C', ':Bwipeout<cr>') -- unload current buffer and remove its jumplist entries
 
 map('n', '<leader>h', ':nohl<cr>')
@@ -47,12 +47,10 @@ map('n', '<leader>d', '"_d')
 map('n', 'J', 'mzJ`z')
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
+map('n', '<leader>Y', '"+y$"')
 -- map('n', 'n', 'nzzzv')
 -- map('n', 'N', 'Nzzzv')
 
--- git stuff
-
--- lsp
 -- -- insert mode
 map('i', 'jk', '<Esc>')
 
@@ -60,3 +58,10 @@ map('i', 'jk', '<Esc>')
 map('v', 'p', '"_dP') -- don't copy pasted over text in vis mode
 map('v', 'J', ":m '>+1<CR>gv=gv")
 map('v', 'K', ":m '<-2<CR>gv=gv")
+
+map('n', 'zC', 'zM') -- close all folds
+map('n', 'zO', 'zR') -- open all folds
+
+-- FTerm
+vim.keymap.set('n', '<C-Y>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<C-Y>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
