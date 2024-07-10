@@ -13,7 +13,6 @@ return {
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
       vim.cmd('highlight FloatBorder ctermfg=NONE ctermbg=NONE cterm=NONE guifg=white')
       local servers = {
-        jdtls = {},
         tsserver = {
           settings = {
             typescript = {},
@@ -33,12 +32,6 @@ return {
             },
           },
         },
-        pyright = {
-          python = {
-            analysis = {
-            }
-          }
-        }
       }
 
       local _border = 'rounded'

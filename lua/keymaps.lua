@@ -19,8 +19,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 map('n', '<leader>q', ':q<cr>')
 map('n', '<leader>w', ':w<cr>')
--- map('n', '<leader>c', ':Bdelete<cr>')  -- unload current buffer with vim-bbye
--- map('n', '<leader>C', ':Bwipeout<cr>') -- unload current buffer and remove its jumplist entries
+map('n', '<leader>c', ':Bdelete<cr>')  -- unload current buffer with vim-bbye
+map('n', '<leader>C', ':Bwipeout<cr>') -- unload current buffer and remove its jumplist entries
 
 map('n', '<leader>h', ':nohl<cr>')
 
@@ -63,5 +63,5 @@ map('n', 'zC', 'zM') -- close all folds
 map('n', 'zO', 'zR') -- open all folds
 
 -- FTerm
--- vim.keymap.set('n', '<C-Y>', '<CMD>lua require("FTerm").toggle()<CR>')
--- vim.keymap.set('t', '<C-Y>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('n', '<C-Y>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<C-Y>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')

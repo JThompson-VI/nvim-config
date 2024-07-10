@@ -75,10 +75,5 @@ return {
   {
     "windwp/nvim-ts-autotag",
     config = true
-  },
-  {
-    "numToStr/Comment.nvim",
-    config = true
   }
-
 }
