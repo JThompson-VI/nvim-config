@@ -13,24 +13,39 @@ return {
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
       vim.cmd('highlight FloatBorder ctermfg=NONE ctermbg=NONE cterm=NONE guifg=white')
       local servers = {
-        tsserver = {
-          settings = {
-            typescript = {},
-          }
-        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' }
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { 'vim' }
+              },
+              workspace = {
+                library = {
+                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                  [vim.fn.stdpath("config") .. "/lua"] = true,
+                }
+              },
             },
-            workspace = {
-              library = {
-                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                [vim.fn.stdpath("config") .. "/lua"] = true,
+
+          }
+        },
+        volar = {},
+        tsserver = {
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = "~/.local/lib/node_modules/@vue/typescript-plugin",
+                languages = {"javascript", "typescript", "vue"},
               }
-            },
+            }
           },
+          filetypes = {
+            "javascript",
+            "typescript",
+            "vue",
+          }
         },
       }
 
@@ -67,12 +82,12 @@ return {
         nmap("gl", vim.diagnostic.open_float)
         nmap("<leader>lk", vim.diagnostic.goto_prev)
         nmap("<leader>lj", vim.diagnostic.goto_next)
-        nmap("<leader>lf",
-          function()
-            vim.lsp.buf.format { filter = function(client)
-              return client.name ~= "tsserver"
-            end }
-          end)
+        -- nmap("<leader>lf",
+        --   function()
+        --     vim.lsp.buf.format { filter = function(client)
+        --       return client.name ~= "tsserver"
+        --     end }
+        --   end)
 
         nmap('<leader>lr', vim.lsp.buf.rename, '[L]sp [R]ename')
       end
@@ -88,9 +103,11 @@ return {
         function(server_name)
           require('lspconfig')[server_name].setup {
             handlers = handlers,
+            init_options = servers[server_name].init_options,
             capabilities = capabilities,
             on_attach = on_attach,
-            settings = servers[server_name],
+            settings = servers[server_name].settings,
+            filetypes = (servers[server_name] or {}).filetypes,
           }
         end,
       }

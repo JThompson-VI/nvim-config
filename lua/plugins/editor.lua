@@ -3,14 +3,6 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      signs = {
-        add = { text = "▎" },
-        change = { text = "~" },
-        delete = { text = "" },
-        topdelete = { text = "" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
       current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
@@ -74,14 +66,13 @@ return {
       }
     end,
   },
-  {
-    'akinsho/bufferline.nvim',
-    version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      require("bufferline").setup {}
-    end
-  },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   version = "*",
+  --   config = function()
+  --     require("bufferline").setup {}
+  --   end
+  -- },
   {
     'numToStr/FTerm.nvim',
     lazy = true,
