@@ -41,6 +41,7 @@ map('n', '<S-l>', ':bnext<cr>')
 map('n', '<S-h>', ':bprevious<cr>')
 
 -- misc mappings
+map('n', 'Q', '!!sh<CR>')
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
 map('n', '<leader>d', '"_d')
@@ -65,3 +66,5 @@ map('n', 'zO', 'zR') -- open all folds
 -- FTerm
 vim.keymap.set('n', '<C-Y>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<C-Y>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+
+map('n', '<leader>lf', ':!eslint --fix %<CR>')
