@@ -103,10 +103,10 @@ return {
         function(server_name)
           require('lspconfig')[server_name].setup {
             handlers = handlers,
-            init_options = servers[server_name].init_options,
+            init_options = (servers[server_name] or {}).init_options,
             capabilities = capabilities,
             on_attach = on_attach,
-            settings = servers[server_name].settings,
+            settings = (servers[server_name] or {}).settings,
             filetypes = (servers[server_name] or {}).filetypes,
           }
         end,

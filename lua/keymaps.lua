@@ -42,6 +42,7 @@ map('n', '<S-h>', ':bprevious<cr>')
 
 -- misc mappings
 map('n', 'Q', '!!sh<CR>')
+map('n', 'gvd', '<CMD>vs<CR>gd')
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
 map('n', '<leader>d', '"_d')
