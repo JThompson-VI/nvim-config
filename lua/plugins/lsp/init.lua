@@ -75,7 +75,7 @@ return {
         nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-        nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[L]sp [W]orkspace symbols')
         -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation') -- was overwritting move to upper split
         nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
         nmap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>")

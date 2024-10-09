@@ -62,6 +62,7 @@ return {
         triggers_nowait = {
           "'",
           '"',
+          'z=',
         },
       }
     end,

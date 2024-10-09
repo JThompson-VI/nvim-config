@@ -6,6 +6,38 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+function ToggleSnakeCase()
+    local cw = vim.fn.expand('<cword>')
+    local converted = ''
+    local found_ = false
+    for i = 1, #cw do
+      local char = cw:sub(i, i)
+      if char == '_' then
+        found_ = true
+      elseif char:match("%u") then
+        if i == 1 then
+          converted = converted .. string.lower(char)
+        else
+          converted = converted .. "_" .. string.lower(char)
+        end
+      else
+        if found_ then
+          converted = converted .. string.upper(char)
+          found_ = false
+        else
+          converted = converted .. char
+        end
+      end
+    end
+    vim.cmd("normal! diwi" .. converted)
+end
+
+
+map('n', '#', '', {
+  callback = ToggleSnakeCase
+})
+map('n', 's', '1z=');
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = ' '
 
@@ -43,7 +75,8 @@ map('n', '<S-h>', ':bprevious<cr>')
 -- misc mappings
 map('n', 'Q', '!!sh<CR>')
 map('n', 'gvd', '<CMD>vs<CR>gd')
-map('n', '<leader>y', '"+y')
+map('n', '<leader>y', '<CMD>Cpy<CR>') -- print to enable copying to host clipboard
+-- map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
 map('n', '<leader>d', '"_d')
 map('n', 'J', 'mzJ`z')
@@ -69,3 +102,18 @@ vim.keymap.set('n', '<C-Y>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<C-Y>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 map('n', '<leader>lf', ':!eslint --fix %<CR>')
+
+
+-- this function is to enable copying to host system clipboard when in ssh session
+vim.api.nvim_create_user_command('Cpy', function (tbl)
+  local arg1 = tbl.fargs[1]
+  local line_num = vim.fn.line('.') - 3
+  if line_num < 1 then
+    line_num = 1
+  end
+  if not arg1 then
+    vim.cmd("!sed -n '" .. line_num .. ",+40p' %")
+  else
+    vim.cmd("!sed -n '" .. line_num .. ",+" .. arg1 .. "p' %")
+  end
+end, {nargs = '*'})
